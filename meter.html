@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Meter</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style type="text/css">
+
+
+
+body {
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+display:flex;
+width:100%;
+height:100vh;
+}
+*{margin:0px; padding:0px;}
+
+.main {
+max-width:250px;
+width:100%;
+margin:auto;
+}
+
+.back {
+width:100%;
+height:0;
+padding-bottom:50%;
+background:#ddd;
+position:relative;
+border-top-left-radius:100% 200%;
+border-top-right-radius:100% 200%;
+overflow:hidden;
+z-index:2;
+}
+
+.process {
+position:absolute;
+width:inherit;
+height:100%;
+background: #00cc00;
+top:100%;
+left:0;
+transform-origin:center top;
+transform:transform  ease-out;
+transform:rotate(0turn);
+z-index:1;
+}
+
+
+.front {
+background:#fff;
+position:absolute;
+width:75%;
+height:150%;
+border-radius:50%;
+left:50%;
+transform:translateX(-50%);
+top:25%;
+z-index:3;
+
+/*text*/
+//text-align:center;
+justify-content:center;
+align-items:center;
+display:flex;
+padding-bottom:25%;
+box-sizing:border-box;
+font-size:150%;
+font-weight:bold;
+}
+
+
+
+</style>
+</head>
+<body>
+
+<div class="main" id="main">
+
+	<div class="back">
+	<div class="process"></div>
+	<div class="front"></div>
+	</div>
+
+
+</div>
+
+<script type="text/javascript">
+
+var process = document.querySelector(".process");
+
+var front = document.querySelector(".front");
+
+var box = document.querySelector(".main");
+function meter( mValue){
+
+
+if(mValue<0 || mValue>1){
+return;
+}
+
+else{
+process.style.transform=`rotate(${mValue/2}turn)`;
+
+process.style.transition="1s";
+
+var convert = Math.round(mValue*100);
+
+front.innerHTML= `${convert}%`;
+}
+
+if(convert>0){
+process.style.background="green";
+} if(convert>50){
+process.style.background="#00cc00";
+} if(convert>60){
+process.style.background="#99cc00";
+} if(convert>70){
+process.style.background="#e6e600";
+} if(convert>80){
+process.style.background="#ffa366";
+} if(convert>90){
+process.style.background="red";
+}
+
+
+
+
+
+};
+
+
+setInterval(function (){
+var numbers = Math.random();
+
+meter(numbers);
+},3500);
+
+
+
+
+</script>
+
+</body>
+</html>
